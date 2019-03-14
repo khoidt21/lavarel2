@@ -41,6 +41,8 @@ class CategoryController extends BaseController
     }
     public function show($id){
 
+          $category = Category::find($id);
+          return view('categorys.show',compact('category'));
     }
     public function edit($id){
 
