@@ -18,4 +18,6 @@ Route::get('/', function () {
 Route::get('categorys/index', 'CategoryController@index')->name('category.index');
 Route::get('categorys/create', 'CategoryController@create')->name('category.create');
 Route::post('categorys/store', 'CategoryController@store')->name('category.store');
-
+Route::post('categorys/edit', 'CategoryController@edit')->name('category.edit');
+Route::post('categorys/show', 'CategoryController@show')->name('category.show');
+Route::post('categorys/destroy', 'CategoryController@destroy')->name('category.destroy');

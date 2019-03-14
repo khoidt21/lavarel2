@@ -13,7 +13,11 @@ class CategoryController extends BaseController
 {
     public function index(){
 
-        return view('categorys.index');
+        $categorys = Category::latest()->paginate(10);
+
+        return view('categorys.index',compact('categorys'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+
     }
     public function create(){
 
@@ -26,15 +30,13 @@ class CategoryController extends BaseController
             'description'=> 'required|string|max:255',
 
           ]);
-          $category = new Category(
-              [
-                'name' => $request->get('name'),
-                'description'=> $request->get('description'),
-                'status' => 1,
-              ]);
 
+          $category = new \App\Category;
+          $category->name = $request->get('name');
+          $category->description = $request->get('description');
           $category->save();
-          return redirect('/category')->with('Thành công', 'Danh mục đã được thêm mới.');
+
+          return redirect('categorys/index')->with('success', 'Thêm mới danh mục thành công.');
 
     }
     public function show($id){
