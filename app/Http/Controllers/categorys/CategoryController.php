@@ -19,10 +19,12 @@ class CategoryController extends BaseController
             ->with('i', (request()->input('page', 1) - 1) * 5);
 
     }
+
     public function create(){
 
         return view('categorys.create');
     }
+
     public function store(Request $request){
 
         $request->validate([
@@ -39,16 +41,27 @@ class CategoryController extends BaseController
           return redirect('categorys/index')->with('success', 'Thêm mới danh mục thành công.');
 
     }
+
     public function show($id){
 
           $category = Category::find($id);
           return view('categorys.show',compact('category'));
+
     }
+
     public function edit($id){
-
+          $category = Category::find($id);
+          return view('categorys.show',compact('category'));
     }
-    public function update(Request $request,$id){
 
+    public function update(Request $request,$id){
+          
+          $request ->validate([
+             'name'=> 'required|string|max:255',
+             'description'=> 'required|string|max:255',
+          ]);
+
+          
     }
 
 }

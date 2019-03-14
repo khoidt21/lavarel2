@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// categories
+
 Route::get('categorys/index', 'CategoryController@index')->name('category.index');
 Route::get('categorys/create', 'CategoryController@create')->name('category.create');
 Route::post('categorys/store', 'CategoryController@store')->name('category.store');
