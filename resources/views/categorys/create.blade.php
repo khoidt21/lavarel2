@@ -23,7 +23,7 @@
       <form method="post" action="{{ route('category.store') }}">
           <div class="form-group">
               @csrf
-              <label for="name">Tên danh mục:</label>
+              <label for="name">Tên danh mục: <span style="color: red">*</span></label>
               <input type="text" class="form-control" name="name"/>
           </div>
           <div class="form-group">
@@ -31,6 +31,7 @@
               <input type="text" class="form-control" name="description"/>
           </div>
           <button type="submit" class="btn btn-primary">Thêm mới</button>
+          <a class="btn btn-primary" href="{{ route('category.index') }}">Trở về</a>
       </form>
   </div>
 </div>

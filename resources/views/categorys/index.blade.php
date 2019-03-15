@@ -30,15 +30,14 @@
             <td>{{ $category->name }}</td>
             <td>{{ $category->description }}</td>
             <td>
-                <form action="{{ route('category.destroy',$category->id) }}" method="POST">
+                <form method="post" action="{{ route('category.destroy',$category->id) }}">
 
                     <a class="btn btn-info" href="{{ route('category.show',$category->id) }}">Xem</a>
 
                     <a class="btn btn-primary" href="{{ route('category.edit',$category->id) }}">Sửa</a>
 
                     @csrf
-                    @method('DELETE')
-
+                    <input name="" type="hidden" value="DELETE">
                     <button type="submit" class="btn btn-danger">Xóa</button>
                 </form>
             </td>

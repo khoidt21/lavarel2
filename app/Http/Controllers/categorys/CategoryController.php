@@ -13,11 +13,11 @@ class CategoryController extends BaseController
 {
     public function index(){
 
-        $categorys = Category::latest()->paginate(10);
+        $categorys = Category::latest()->paginate(8);
 
         return view('categorys.index',compact('categorys'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
-
+            ->with('i', (request()->input('page', 1) - 1) * 8);
+            
     }
 
     public function create(){
@@ -29,7 +29,6 @@ class CategoryController extends BaseController
 
         $request->validate([
             'name'=>'required|string|max:255',
-            'description'=> 'required|string|max:255',
 
           ]);
 
@@ -51,17 +50,28 @@ class CategoryController extends BaseController
 
     public function edit($id){
           $category = Category::find($id);
-          return view('categorys.show',compact('category'));
+          return view('categorys.edit',compact('category'));
     }
 
     public function update(Request $request,$id){
           
           $request ->validate([
              'name'=> 'required|string|max:255',
-             'description'=> 'required|string|max:255',
           ]);
+          $category = Category::find($id);
+          $category->name = $request->get('name');
+          $category->description = $request->get('description');
+          $category->update();
+                    
+          return redirect('categorys/index')->with('success','Sửa danh mục thành công.');
 
-          
+    }
+    public function destroy($id){
+
+          $category = Category::find($id);
+          $category->delete();
+
+          return redirect('categorys/index')->with('success', 'Xóa danh mục thành công.');
     }
 
 }
