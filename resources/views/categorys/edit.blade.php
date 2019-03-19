@@ -1,4 +1,4 @@
-@extends('categorys/layout')
+@extends('layout')
 
 @section('content')
 <style>
@@ -20,7 +20,7 @@
         </ul>
       </div><br />
     @endif
-      <?php 
+      <?php
             // var_dump($category);
       ?>
       <form method="post" action="{{ route('category.update',$category->id) }}">

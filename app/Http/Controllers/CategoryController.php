@@ -17,7 +17,7 @@ class CategoryController extends BaseController
 
         return view('categorys.index',compact('categorys'))
             ->with('i', (request()->input('page', 1) - 1) * 8);
-            
+
     }
 
     public function create(){
@@ -54,7 +54,7 @@ class CategoryController extends BaseController
     }
 
     public function update(Request $request,$id){
-          
+
           $request ->validate([
              'name'=> 'required|string|max:255',
           ]);
@@ -62,7 +62,7 @@ class CategoryController extends BaseController
           $category->name = $request->get('name');
           $category->description = $request->get('description');
           $category->update();
-                    
+
           return redirect('categorys/index')->with('success','Sửa danh mục thành công.');
 
     }
