@@ -34,7 +34,7 @@
             <td>{{ $new->description }}</td>
             <td>{{ $new->content}}</td>
             <td><img style="display:block;margin:0 auto" src="{{URL::to('/')}}/{{$new->images}}" width="80px" height="80px"></td>
-            <td></td>
+            <td>ten danh muc </td>
             <td>
                 <form method="post" action="{{ route('new.destroy',$new->id) }}">
 
