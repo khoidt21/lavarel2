@@ -54,7 +54,7 @@
                 </div>
           </div>
           <div class="form-group">
-
+                <img src="{{URL::to('/')}}/{{$new->images}}" width="80px" height="80px">
           </div>
           </div>
           <button type="submit" class="btn btn-primary">Sửa</button>
