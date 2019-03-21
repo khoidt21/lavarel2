@@ -19,7 +19,7 @@ class NewsController extends BaseController
     public function index(){
 
         $news = News::latest()->paginate(8);
-
+        
         return view('news.index',compact('news'))
             ->with('i', (request()->input('page', 1) - 1) * 8);
 
@@ -37,6 +37,11 @@ class NewsController extends BaseController
 
           ]);
 
+         $new = new \App\News;
+         $new->title = $request->get('title');
+         $new->description = $request->get('description');
+         $new->content = $request->get('content');
+
         if ($request->hasFile('reward-image')) {
             // get the file object
             $file = $request->file('reward-image');
@@ -49,47 +54,60 @@ class NewsController extends BaseController
             $file->move(public_path() . $rewardsUploadPath, $fileName);
             // save the file path and name
             $filePathAndName = $rewardsUploadPath . $fileName;
+            $new->images = $filePathAndName;
           }
-
-          $new = new \App\News;
-          $new->title = $request->get('title');
-          $new->description = $request->get('description');
-          $new->content = $request->get('content');
-          $new->images = $filePathAndName;
+          
           $new->idcategory = $request->get('category');
           $new->save();
-          return redirect('news/index')->with('success', 'Thêm mới tin tức thành công.');
+          return redirect('news')->with('success', 'Thêm mới tin tức thành công.');
 
     }
 
     public function show($id){
 
-          $news = News::find($id);
-          return view('news.show',compact('news'));
-
+          $new = News::find($id);
+          return view('news.show',compact('new'));
     }
 
     public function edit($id){
+
           $new = News::find($id);
-          return view('news.edit',compact('new'));
+          $categorys = Category::all();
+          return view('news.edit',compact('new','categorys'));
     }
 
     public function update(Request $request,$id){
+
 
           $request ->validate([
              'title'=> 'required|string|max:255',
           ]);
 
-          $new = News::find($id);
-          $new->title = $request->get('title');
-          $new->description = $request->get('description');
-          $new->content = $request->get('content');
-          $new->image = $request->get('image');
-          $new->status = 1;
-          $new->idcategory = $request->get('idcategory');
-          $new->update();
+           $new = News::find($id);
+           $new->title = $request->get('title');
+           $new->description = $request->get('description');
+           $new->content = $request->get('content');
 
-          return redirect('news/index')->with('success','Sửa tin tức thành công.');
+          if ($request->hasFile('reward-image')) {
+            // get the file object
+            $file = $request->file('reward-image');
+            // set the upload path (starting form the public path)
+            $rewardsUploadPath = '/uploads/rewards/images/';
+            // create a unique name for this file
+            $fileName = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString())
+                    . '-' . str_random(5) . '.' . $file->getClientOriginalExtension();
+            // move the uploaded file to its destination
+            $file->move(public_path() . $rewardsUploadPath, $fileName);
+            // save the file path and name
+            $filePathAndName = $rewardsUploadPath . $fileName;
+            $new->images = $filePathAndName;
+
+          }
+          
+           $new->idcategory = $request->get('category');
+           $new->update();
+
+           return redirect('news')->with('success','Sửa tin tức thành công.');
 
     }
 
@@ -97,8 +115,7 @@ class NewsController extends BaseController
 
           $new = News::find($id);
           $new->delete();
-
-          return redirect('news/index')->with('success', 'Xóa tin tức thành công.');
+          return redirect('news')->with('success', 'Xóa tin tức thành công.');
     }
 
 }

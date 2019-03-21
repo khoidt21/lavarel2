@@ -25,6 +25,7 @@
             <th>Nội dung</th>
             <th>Ảnh</th>
             <th>Danh mục</th>
+           
             <th width="280px">Hành động</th>
         </tr>
         @foreach ($news as $new)
@@ -34,7 +35,12 @@
             <td>{{ $new->description }}</td>
             <td>{{ $new->content}}</td>
             <td><img style="display:block;margin:0 auto" src="{{URL::to('/')}}/{{$new->images}}" width="80px" height="80px"></td>
-            <td>ten danh muc </td>
+            <td>
+                <?php 
+                        $category = \App\Category::find($new->idcategory);
+                ?>
+                {{ $category->name }}
+            </td>
             <td>
                 <form method="post" action="{{ route('new.destroy',$new->id) }}">
 

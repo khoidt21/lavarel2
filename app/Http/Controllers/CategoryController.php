@@ -14,7 +14,6 @@ class CategoryController extends BaseController
     public function index(){
 
         $categorys = Category::latest()->paginate(8);
-
         return view('categorys.index',compact('categorys'))
             ->with('i', (request()->input('page', 1) - 1) * 8);
 
@@ -37,7 +36,7 @@ class CategoryController extends BaseController
           $category->description = $request->get('description');
           $category->save();
 
-          return redirect('categorys/index')->with('success', 'Thêm mới danh mục thành công.');
+          return redirect('categorys')->with('success', 'Thêm mới danh mục thành công.');
 
     }
 
@@ -45,7 +44,6 @@ class CategoryController extends BaseController
 
           $category = Category::find($id);
           return view('categorys.show',compact('category'));
-
     }
 
     public function edit($id){
@@ -63,7 +61,7 @@ class CategoryController extends BaseController
           $category->description = $request->get('description');
           $category->update();
 
-          return redirect('categorys/index')->with('success','Sửa danh mục thành công.');
+          return redirect('categorys')->with('success','Sửa danh mục thành công.');
 
     }
     public function destroy($id){
@@ -71,7 +69,7 @@ class CategoryController extends BaseController
           $category = Category::find($id);
           $category->delete();
 
-          return redirect('categorys/index')->with('success', 'Xóa danh mục thành công.');
+          return redirect('categorys')->with('success', 'Xóa danh mục thành công.');
     }
 
 }
