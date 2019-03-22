@@ -51,9 +51,6 @@
                     <span class="input-group-addon"><i class="fa fa-file-excel-o"></i></span>
                 </div>
           </div>
-          <div class="form-group">
-
-          </div>
           </div>
           <button type="submit" class="btn btn-primary">Thêm mới</button>
           <a class="btn btn-primary" href="{{ route('new.index') }}">Trở về</a>

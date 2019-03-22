@@ -25,7 +25,7 @@
             <th>Nội dung</th>
             <th>Ảnh</th>
             <th>Danh mục</th>
-           
+
             <th width="280px">Hành động</th>
         </tr>
         @foreach ($news as $new)
@@ -36,7 +36,7 @@
             <td>{{ $new->content}}</td>
             <td><img style="display:block;margin:0 auto" src="{{URL::to('/')}}/{{$new->images}}" width="80px" height="80px"></td>
             <td>
-                <?php 
+                <?php
                         $category = \App\Category::find($new->idcategory);
                 ?>
                 {{ $category->name }}
@@ -45,7 +45,6 @@
                 <form method="post" action="{{ route('new.destroy',$new->id) }}">
 
                     <a class="btn btn-info" href="{{ route('new.show',$new->id) }}">Xem</a>
-
                     <a class="btn btn-primary" href="{{ route('new.edit',$new->id) }}">Sửa</a>
 
                     @csrf

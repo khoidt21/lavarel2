@@ -40,7 +40,7 @@
               <label for="category">Danh mục tin tức</label>
               <select name="category">
                     @foreach($categorys as $category)
-                    <option value="{{$category->id}}" 
+                    <option value="{{$category->id}}"
 
                     <?php if ($category->id == $new->idcategory) {echo ("selected");} ?>>{{ $category->name }}</option>
                     @endforeach
@@ -49,13 +49,11 @@
           <div class="form-group">
           <div class="col-xs-12">
                 <div class="form-material form-material-primary floating input-group">
-                    <input class="form-control btn-file" type="file" id="reward-image" name="reward-image">
+                    <input class="form-control btn-file" type="file" id="reward-image" value="{{ $new->images }}" name="reward-image">
                     <span class="input-group-addon"><i class="fa fa-file-excel-o"></i></span>
                 </div>
           </div>
-          <div class="form-group">
-                <img src="{{URL::to('/')}}/{{$new->images}}" width="80px" height="80px">
-          </div>
+
           </div>
           <button type="submit" class="btn btn-primary">Sửa</button>
           <a class="btn btn-primary" href="{{ route('new.index') }}">Trở về</a>

@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// admin
+Route::get('admin', 'AdminController@index')->name('admin.index');
+
 // categories
 
 Route::get('categorys', 'CategoryController@index')->name('category.index');

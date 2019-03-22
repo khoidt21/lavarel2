@@ -19,7 +19,7 @@ class NewsController extends BaseController
     public function index(){
 
         $news = News::latest()->paginate(8);
-        
+
         return view('news.index',compact('news'))
             ->with('i', (request()->input('page', 1) - 1) * 8);
 
@@ -34,7 +34,7 @@ class NewsController extends BaseController
 
         $request->validate([
             'title'=>'required|string|max:255',
-
+            'reward-image' => 'mimes:jpeg,png,bmp,tiff |max:4096',
           ]);
 
          $new = new \App\News;
@@ -56,7 +56,7 @@ class NewsController extends BaseController
             $filePathAndName = $rewardsUploadPath . $fileName;
             $new->images = $filePathAndName;
           }
-          
+
           $new->idcategory = $request->get('category');
           $new->save();
           return redirect('news')->with('success', 'Thêm mới tin tức thành công.');
@@ -81,6 +81,7 @@ class NewsController extends BaseController
 
           $request ->validate([
              'title'=> 'required|string|max:255',
+             'reward-image' => 'mimes:jpeg,png,bmp,tiff |max:4096',
           ]);
 
            $new = News::find($id);
@@ -103,7 +104,7 @@ class NewsController extends BaseController
             $new->images = $filePathAndName;
 
           }
-          
+
            $new->idcategory = $request->get('category');
            $new->update();
 
